@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Create your account</h1>
+    <p class="subtitle">Your safe space starts here.</p>
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <form action="/register" method="POST">
+      <div class="form-group">
+        <label>Your first name</label>
+        <input type="text" name="name" placeholder="Priya" required />
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" name="email" placeholder="you@email.com" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Min 6 characters" required />
+      </div>
+      <div class="form-group">
+        <label>4-digit PIN <span class="hint">(for phone sharing protection)</span></label>
+        <input type="password" name="pin" placeholder="●●●●" maxlength="4" pattern="[0-9]{4}" />
+      </div>
+      <button type="submit" class="btn-primary">Create My Profile</button>
+    </form>
+    <p class="switch-auth">Already have an account? <a href="/login">Log in</a></p>
+  </div>
+</div>
+<%- include('../partials/footer') %>

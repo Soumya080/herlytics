@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+<div class="onboarding-page">
+  <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+  <p class="progress-text">Stage 3 of 5 — Your Lifestyle</p>
+  <div class="onboarding-card">
+    <h2>Lifestyle directly affects your cycle.</h2>
+    <form action="/onboarding/stage3" method="POST">
+
+      <div class="form-group">
+        <label>Stress level lately?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="stressLevel" value="low" required /> Low — fairly calm</label>
+          <label><input type="radio" name="stressLevel" value="moderate" /> Moderate — manageable</label>
+          <label><input type="radio" name="stressLevel" value="high" /> High — exams / work load</label>
+          <label><input type="radio" name="stressLevel" value="very_high" /> Very high — overwhelmed</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Sleep pattern?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="sleepPattern" value="regular" required /> Regular 7–8 hours</label>
+          <label><input type="radio" name="sleepPattern" value="irregular" /> Irregular but okay</label>
+          <label><input type="radio" name="sleepPattern" value="poor" /> Poor, often tired</label>
+          <label><input type="radio" name="sleepPattern" value="very_poor" /> Very disrupted</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Diet pattern?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="dietPattern" value="balanced" required /> Balanced meals</label>
+          <label><input type="radio" name="dietPattern" value="skipping" /> Skipping meals sometimes</label>
+          <label><input type="radio" name="dietPattern" value="restricting" /> Frequent dieting</label>
+          <label><input type="radio" name="dietPattern" value="irregular" /> Very irregular</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Physical activity?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="activityLevel" value="active" required /> Active / exercise regularly</label>
+          <label><input type="radio" name="activityLevel" value="moderate" /> Moderate / occasional walks</label>
+          <label><input type="radio" name="activityLevel" value="sedentary" /> Mostly sedentary</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Known health conditions?</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="knownConditions" value="pcos" /> PCOS</label>
+          <label><input type="checkbox" name="knownConditions" value="thyroid" /> Thyroid</label>
+          <label><input type="checkbox" name="knownConditions" value="endometriosis" /> Endometriosis</label>
+          <label><input type="checkbox" name="knownConditions" value="anaemia" /> Anaemia</label>
+          <label><input type="checkbox" name="knownConditions" value="none" /> None</label>
+          <label><input type="checkbox" name="knownConditions" value="not_sure" /> Not sure</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Next →</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

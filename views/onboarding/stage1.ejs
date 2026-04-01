@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+<div class="onboarding-page">
+  <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+  <p class="progress-text">Stage 1 of 5 — Your Cycle</p>
+  <div class="onboarding-card">
+    <h2>Let's understand your cycle first.</h2>
+    <form action="/onboarding/stage1" method="POST">
+
+      <div class="form-group">
+        <label>How many days gap between your periods?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="cycleGap" value="less21" required /> Less than 21 days</label>
+          <label><input type="radio" name="cycleGap" value="21-25days" /> 21–25 days</label>
+          <label><input type="radio" name="cycleGap" value="26-30days" /> 26–30 days</label>
+          <label><input type="radio" name="cycleGap" value="31-35days" /> 31–35 days</label>
+          <label><input type="radio" name="cycleGap" value="more35days" /> More than 35 days</label>
+          <label><input type="radio" name="cycleGap" value="irregular" /> Completely irregular</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>How long does your period last?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="periodDuration" value="1-2days" required /> 1–2 days</label>
+          <label><input type="radio" name="periodDuration" value="3-4days" /> 3–4 days</label>
+          <label><input type="radio" name="periodDuration" value="5-6days" /> 5–6 days</label>
+          <label><input type="radio" name="periodDuration" value="7+days" /> 7+ days</label>
+          <label><input type="radio" name="periodDuration" value="varies" /> Varies each time</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Next →</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

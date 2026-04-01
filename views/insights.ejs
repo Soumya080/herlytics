@@ -1,0 +1,92 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="page-container">
+
+  <!-- Risk Card -->
+  <div class="card risk-card risk-<%= risk.level %>">
+    <h3>Health pattern analysis</h3>
+    <div class="risk-score-wrap">
+      <div class="risk-score"><%= risk.score %></div>
+      <div class="risk-info">
+        <span class="risk-level-badge"><%= risk.level.toUpperCase() %> RISK</span>
+        <p><%= risk.message %></p>
+      </div>
+    </div>
+    <% if (risk.flags.length > 0) { %>
+      <div class="flags-list">
+        <p class="flags-title">Patterns we noticed:</p>
+        <% risk.flags.forEach(f => { %>
+          <span class="flag-pill">⚠️ <%= f %></span>
+        <% }) %>
+      </div>
+    <% } %>
+    <p class="disclaimer">This is not a diagnosis. These are patterns worth discussing with a doctor.</p>
+    <a href="/doctor" class="btn-primary">Find a doctor near me →</a>
+  </div>
+
+  <!-- Cycle Chart -->
+  <% if (stats && stats.gaps.length > 0) { %>
+  <div class="card">
+    <h3>Your cycle length over time</h3>
+    <canvas id="cycleChart" height="100"></canvas>
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num"><%= stats.avg %></span>
+        <span class="stat-label">Average days</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num"><%= stats.min %></span>
+        <span class="stat-label">Shortest</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num"><%= stats.max %></span>
+        <span class="stat-label">Longest</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num <%= stats.isIrregular ? 'text-amber' : 'text-green' %>"><%= stats.variance %></span>
+        <span class="stat-label">Variance</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('cycleChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: <%- JSON.stringify(stats.gaps.map((_, i) => `Cycle ${i+1}`)) %>,
+        datasets: [{
+          label: 'Cycle length (days)',
+          data: <%- JSON.stringify(stats.gaps) %>,
+          borderColor: '#C2185B',
+          backgroundColor: 'rgba(194,24,91,0.08)',
+          borderWidth: 2,
+          pointBackgroundColor: '#C2185B',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { min: 15, suggestedMax: 45, title: { display: true, text: 'Days' } }
+        }
+      }
+    });
+  </script>
+  <% } %>
+
+  <!-- Phase Info -->
+  <% if (stats) { %>
+  <div class="card">
+    <h3>You are currently in: <%= stats.phase.emoji %> <%= stats.phase.name %> Phase</h3>
+    <p class="phase-hormones"><%= stats.phase.hormones %></p>
+    <p class="phase-tip"><%= stats.phase.tip %></p>
+  </div>
+  <% } %>
+
+</div>
+
+<%- include('partials/footer') %>

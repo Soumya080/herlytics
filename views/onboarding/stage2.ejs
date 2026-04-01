@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<div class="onboarding-page">
+  <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+  <p class="progress-text">Stage 2 of 5 — Your Symptoms</p>
+  <div class="onboarding-card">
+    <h2>Your symptoms are data. Let's capture them.</h2>
+    <form action="/onboarding/stage2" method="POST">
+
+      <div class="form-group">
+        <label>Physical symptoms (select all that apply)</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="physicalSymptoms" value="cramps" /> Cramps / pelvic pain</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="heavy_flow" /> Very heavy bleeding</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="clots" /> Clots in flow</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="irregular_bleeding" /> Bleeding between periods</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="bloating" /> Bloating</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="headaches" /> Headaches / migraines</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="facial_hair" /> Unusual facial hair / acne</label>
+          <label><input type="checkbox" name="physicalSymptoms" value="back_pain" /> Back pain</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Emotional symptoms (select all that apply)</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="emotionalSymptoms" value="mood_swings" /> Mood swings</label>
+          <label><input type="checkbox" name="emotionalSymptoms" value="anxiety" /> Anxiety before period</label>
+          <label><input type="checkbox" name="emotionalSymptoms" value="depression" /> Low mood during period</label>
+          <label><input type="checkbox" name="emotionalSymptoms" value="fatigue" /> Extreme fatigue</label>
+          <label><input type="checkbox" name="emotionalSymptoms" value="brain_fog" /> Brain fog</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>How much do symptoms affect your daily life? (1 = fine, 5 = can't function)</label>
+        <input type="range" name="symptomSeverity" min="1" max="5" value="3" class="slider" />
+      </div>
+
+      <button type="submit" class="btn-primary">Next →</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

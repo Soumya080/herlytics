@@ -1,0 +1,86 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="page-container">
+
+  <!-- Cycle Status Card -->
+  <div class="card cycle-card">
+    <% if (stats) { %>
+      <div class="cycle-phase-badge"><%= stats.phase.emoji %> <%= stats.phase.name %> Phase</div>
+      <h2>Day <%= stats.dayOfCycle %> of your cycle</h2>
+      <div class="cycle-bar-wrap">
+        <div class="cycle-bar-fill" style="width: <%= Math.min((stats.dayOfCycle / stats.avg) * 100, 100) %>%"></div>
+      </div>
+      <p class="cycle-tip"><%= stats.phase.tip %></p>
+      <div class="cycle-meta">
+        <span>📅 Next period: <strong><%= stats.nextPeriod.toLocaleDateString('en-IN', {day:'numeric', month:'long'}) %></strong></span>
+        <span>📊 Avg cycle: <strong><%= stats.avg %> days</strong></span>
+        <% if (stats.isIrregular) { %>
+          <span class="flag-badge">⚠️ Irregular cycles detected</span>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="no-data">
+        <h2>Welcome, <%= user.name %>! 👋</h2>
+        <p>Log your first period to start seeing insights.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Log Period -->
+  <div class="card">
+    <h3>Log a period</h3>
+    <form action="/dashboard/log" method="POST" class="log-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start date</label>
+          <input type="date" name="periodStartDate" required />
+        </div>
+        <div class="form-group">
+          <label>Flow level</label>
+          <select name="flowLevel">
+            <option value="spotting">Spotting</option>
+            <option value="light">Light</option>
+            <option value="medium" selected>Medium</option>
+            <option value="heavy">Heavy</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>How are you feeling?</label>
+          <select name="mood">
+            <option value="good">😊 Good</option>
+            <option value="okay">😐 Okay</option>
+            <option value="sad">😔 Low</option>
+            <option value="tired">😴 Tired</option>
+            <option value="nauseous">🤢 Nauseous</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" name="hasClots"> Clots present (larger than a coin)</label>
+      </div>
+      <button type="submit" class="btn-primary">Save log</button>
+    </form>
+  </div>
+
+  <!-- Past Logs -->
+  <% if (logs.length > 0) { %>
+  <div class="card">
+    <h3>Your cycle history</h3>
+    <div class="log-list">
+      <% logs.slice(0,6).forEach(log => { %>
+        <div class="log-item">
+          <span class="log-date"><%= log.periodStartDate.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}) %></span>
+          <span class="log-flow flow-<%= log.flowLevel %>"><%= log.flowLevel %></span>
+          <span class="log-mood"><%= log.mood || '—' %></span>
+          <% if (log.hasClots) { %><span class="flag-sm">⚠️ clots</span><% } %>
+        </div>
+      <% }) %>
+    </div>
+    <a href="/insights" class="btn-secondary">View full insights →</a>
+  </div>
+  <% } %>
+
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,117 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="page-container">
+
+  <div class="card">
+    <h2 class="page-title">Find a gynecologist near you</h2>
+    <p class="page-sub">Real doctors. Real help. Near you.</p>
+
+    <form action="/doctor" method="GET" class="search-form">
+      <div class="search-row">
+        <input type="text" name="city" value="<%= cityQuery %>"
+          placeholder="Enter your city — e.g. Bhopal, Indore, Mumbai" class="search-input" />
+        <button type="submit" class="btn-primary">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <% if (clinics.length > 0) { %>
+
+  <div class="section-title">
+    <span class="section-dot"></span>
+    <%= clinics.length %> doctors found near <%= cityQuery %>
+  </div>
+
+  <div class="doctor-grid">
+    <% clinics.forEach(clinic => { %>
+    <div class="doctor-card">
+      <div class="doctor-avatar"><%= clinic.name.charAt(3) %></div>
+      <div class="doctor-info">
+        <h3 class="doctor-name"><%= clinic.name %></h3>
+        <span class="doctor-specialty"><%= clinic.specialty %></span>
+        <div class="doctor-details">
+          <div class="doctor-detail-row">
+            <span class="detail-icon">🏥</span>
+            <span><%= clinic.hospital %></span>
+          </div>
+          <div class="doctor-detail-row">
+            <span class="detail-icon">📍</span>
+            <span><%= clinic.address %></span>
+          </div>
+          <div class="doctor-detail-row">
+            <span class="detail-icon">📞</span>
+            <span><%= clinic.phone %></span>
+          </div>
+        </div>
+        <div class="doctor-actions">
+          <a href="tel:<%= clinic.phone %>" class="btn-call">Call Now</a>
+          <span class="area-badge"><%= clinic.area %></span>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <% if (lat && lng) { %>
+  <div class="card map-card">
+    <h3>Map view — <%= cityQuery %></h3>
+    <iframe
+      width="100%"
+      height="380"
+      style="border:none; border-radius:12px; margin-top:14px;"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=<%= lng-0.08 %>,<%= lat-0.08 %>,<%= lng+0.08 %>,<%= lat+0.08 %>&layer=mapnik&marker=<%= lat %>,<%= lng %>"
+    ></iframe>
+    
+      href="https://www.openstreetmap.org/?mlat=<%= lat %>&mlon=<%= lng %>#map=13/<%= lat %>/<%= lng %>"
+      target="_blank" class="map-link">Open full map →</a>
+  </div>
+  <% } %>
+
+  <% } else if (cityQuery) { %>
+  <div class="card empty-card">
+    <div class="empty-icon">🔍</div>
+    <h3>No results for "<%= cityQuery %>"</h3>
+    <p>We currently have data for Bhopal and Indore. More cities coming soon.</p>
+    <p style="margin-top:8px; font-size:13px; color:#aaa;">Try searching "Bhopal" or "Indore"</p>
+  </div>
+  <% } %>
+
+  <!-- Free resources -->
+  <div class="card resources-card">
+    <h3 class="resources-title">Free government health resources</h3>
+    <div class="resources-grid">
+      <div class="resource-item">
+        <div class="resource-icon">🏛️</div>
+        <div>
+          <strong>PMJAY — Ayushman Bharat</strong>
+          <p>Free health coverage up to ₹5 lakh/year for eligible families.</p>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon">🤱</div>
+        <div>
+          <strong>Janani Suraksha Yojana</strong>
+          <p>Free maternal health at all government hospitals.</p>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon">📱</div>
+        <div>
+          <strong>National Health Helpline: 104</strong>
+          <p>Free medical advice, available in Hindi and English.</p>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon">🩺</div>
+        <div>
+          <strong>Hamidia Hospital, Bhopal</strong>
+          <p>Free OPD for women. Gynecology dept open Mon–Sat, 9am–1pm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>
