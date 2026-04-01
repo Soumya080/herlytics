@@ -73,7 +73,26 @@ app.use('/app', express.static(path.join(__dirname, 'public')));
 
 // Frontend static site — served at /site/...
 const frontendPath = path.resolve(__dirname, process.env.FRONTEND_PATH || './public/site');
+console.log('Frontend path resolved to:', frontendPath);
 app.use('/site', express.static(frontendPath));
+
+// DEBUG: temporary endpoint to check paths on Render (remove after fixing)
+const fs = require('fs');
+app.get('/debug/paths', (req, res) => {
+  const exists = fs.existsSync(frontendPath);
+  const publicExists = fs.existsSync(path.join(__dirname, 'public'));
+  const files = exists ? fs.readdirSync(frontendPath) : [];
+  const publicFiles = publicExists ? fs.readdirSync(path.join(__dirname, 'public')) : [];
+  res.json({
+    __dirname,
+    frontendPath,
+    frontendExists: exists,
+    frontendFiles: files,
+    publicPath: path.join(__dirname, 'public'),
+    publicExists,
+    publicFiles
+  });
+});
 
 // ─── GLOBAL ERROR HANDLER ───────────────────────────────────────────
 app.use((err, req, res, next) => {
