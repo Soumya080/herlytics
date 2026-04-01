@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Herlytics</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .team-card { background:white; border:1px solid var(--border); border-radius:var(--radius); padding:28px; text-align:center; }
+    .team-avatar { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--teal-300),var(--teal-600)); display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:white; font-weight:700; margin:0 auto 16px; }
+    .team-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; margin-bottom:4px; }
+    .team-role { font-size:.82rem; color:var(--teal-600); font-weight:600; margin-bottom:10px; }
+    .team-bio { font-size:.85rem; color:var(--text-muted); line-height:1.65; }
+    .mission-block { background:linear-gradient(135deg,var(--teal-50),white); border:1px solid var(--teal-100); border-radius:var(--radius-lg); padding:60px; text-align:center; }
+    @media(max-width:700px){.team-grid{grid-template-columns:1fr;} .mission-block{padding:36px 24px;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html">Herlytics<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html#features">Features</a></li>
+    <li><a href="../index.html#pricing">Pricing</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <div style="display:flex;gap:10px;">
+    <a href="login.html" class="btn-outline" style="padding:9px 20px;font-size:.88rem;">Login</a>
+    <a href="signup.html" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<section style="padding:120px 5% 60px;">
+  <div class="section-inner" style="max-width:780px;">
+    <div class="section-tag">Our Story</div>
+    <h1 class="section-title">Built by women who were tired of being underdiagnosed</h1>
+    <p style="font-size:1.05rem;color:var(--text-muted);line-height:1.8;margin-bottom:24px;">PCOS affects 1 in 10 women worldwide — yet the average time to diagnosis is over 2 years. Women are dismissed, symptoms are normalized, and the window for early intervention closes. We built Herlytics to change that.</p>
+    <p style="font-size:1.05rem;color:var(--text-muted);line-height:1.8;">Herlytics is an AI-powered women's health platform born from a hackathon idea and driven by a simple belief: every woman deserves access to the same quality of health insight that used to require expensive specialists and years of appointments.</p>
+  </div>
+</section>
+
+<section style="padding:0 5% 80px;">
+  <div class="section-inner">
+    <div class="mission-block reveal">
+      <div class="section-tag">Our Mission</div>
+      <h2 class="section-title" style="margin:12px auto;max-width:580px;">"To make hormonal health as measurable and understandable as a fitness tracker."</h2>
+      <p style="color:var(--text-muted);max-width:500px;margin:0 auto;font-size:1rem;line-height:1.7;">We combine clinical research, machine learning, and beautiful design to give every woman the health clarity she deserves — regardless of where she lives or what she can afford.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 5% 80px;background:white;">
+  <div class="section-inner">
+    <div class="reveal" style="margin-bottom:40px;">
+      <div class="section-tag">The Team</div>
+      <h2 class="section-title">Meet the builders</h2>
+      <p class="section-sub">A multidisciplinary team of engineers, clinicians, and designers united by a shared mission.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar">S</div>
+        <div class="team-name">Suraj Verma</div>
+        <div class="team-role">Founder & ML Lead</div>
+        <p class="team-bio">Data scientist with expertise in healthcare AI. Built the PCOS detection model using clinical datasets and ensemble methods.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">A</div>
+        <div class="team-name">Ananya Rajan</div>
+        <div class="team-role">Clinical Advisor & Product</div>
+        <p class="team-bio">MBBS with specialization in gynecology. Ensures all clinical logic, biomarker thresholds, and recommendations are medically sound.</p>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">K</div>
+        <div class="team-name">Kiran Nair</div>
+        <div class="team-role">Full-Stack Engineer</div>
+        <p class="team-bio">Backend and frontend architect. Built the Flask API, React dashboard, and the secure data infrastructure powering Herlytics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:60px 5% 80px;">
+  <div class="section-inner" style="max-width:780px;">
+    <div class="reveal" style="margin-bottom:36px;">
+      <div class="section-tag">The Technology</div>
+      <h2 class="section-title">How we built the model</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">Ensemble ML Model</div>
+        <p class="feature-desc">Our PCOS classifier combines Random Forest, XGBoost, and Logistic Regression in an ensemble, trained on 25,000+ anonymized clinical records with 94% test accuracy.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">🗃️</div>
+        <div class="feature-title">Training Dataset</div>
+        <p class="feature-desc">Based on the publicly available PCOS clinical dataset (Kaggle), supplemented with synthetic data generation to ensure class balance and reduce bias across demographics.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Privacy by Design</div>
+        <p class="feature-desc">All inference happens server-side. User data is encrypted with AES-256 at rest. No data is shared with third parties. Full GDPR and HIPAA compliance architecture.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">⚕️</div>
+        <div class="feature-title">Clinical Review</div>
+        <p class="feature-desc">Every recommendation, threshold, and output label has been reviewed by certified gynecologists. We update our model quarterly with new clinical guidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 5% 80px;">
+  <div class="section-inner">
+    <div class="cta-banner reveal">
+      <h2>Join us in transforming women's health.</h2>
+      <p>Start your personalized assessment today — free, private, and clinically grounded.</p>
+      <a href="assessment.html" class="btn-white">Start Free Assessment →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">Herlytics.</div><p>AI-powered women's health analytics.</p></div>
+      <div class="footer-col"><h4>Product</h4><ul><li><a href="../index.html#features">Features</a></li><li><a href="assessment.html">Assessment</a></li><li><a href="../index.html#pricing">Pricing</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Herlytics.</span><span>Made in India 🇮🇳</span></div>
+  </div>
+</footer>
+<script src="../js/main.js"></script>
+</body>
+</html>

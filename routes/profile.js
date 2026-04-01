@@ -2,11 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const CycleLog = require('../models/CycleLog');
-
-function requireLogin(req, res, next) {
-  if (!req.session.user) return res.redirect('/login');
-  next();
-}
+const { requireEjsAuth: requireLogin } = require('../middleware/auth');
 
 // Show profile page
 router.get('/', requireLogin, async (req, res) => {

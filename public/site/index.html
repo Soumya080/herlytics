@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Herlytics — AI-Powered Women's Health Analytics</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── TESTIMONIALS SLIDER ── */
+    .testimonial-slider { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    /* Pricing */
+    #pricing { background: var(--bg-main); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; align-items: start; }
+    .pricing-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s; }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pricing-card.featured { border-color: var(--teal-400); background: linear-gradient(135deg, var(--teal-50), white); position: relative; overflow: hidden; }
+    .pricing-card.featured::before { content: 'Most Popular'; position: absolute; top: 18px; right: -24px; background: var(--teal-500); color: white; font-size: .72rem; font-weight: 700; letter-spacing: .5px; padding: 4px 36px; transform: rotate(35deg); }
+    .plan-name { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--teal-600); margin-bottom: 10px; }
+    .plan-price { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; color: var(--charcoal); line-height: 1; }
+    .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+    .plan-price span { font-size: .9rem; font-weight: 400; color: var(--text-muted); }
+    .plan-desc { font-size: .88rem; color: var(--text-muted); margin: 12px 0 24px; }
+    .plan-features { list-style: none; margin-bottom: 28px; }
+    .plan-features li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .plan-features li::before { content: '✓'; color: var(--teal-500); font-weight: 700; flex-shrink: 0; }
+    /* Partners */
+    .partner-strip { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 5%; }
+    .partner-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; justify-content: center; }
+    .partner-tag { font-size: .78rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .partner-logos { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+    .partner-logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text-light); font-weight: 600; opacity: .6; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Herlytics<span>.</span></a>
+  <ul class="nav-links" id="navMenu">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="pages/about.html">About</a></li>
+  </ul>
+  <div style="display:flex;gap:12px;align-items:center">
+    <a href="pages/login.html" class="btn-outline" style="padding:9px 20px;font-size:.88rem;">Login</a>
+    <a href="pages/signup.html" class="nav-cta">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">AI-Powered Women's Health</div>
+      <h1>Understand your health with <span class="highlight">smart analytics</span></h1>
+      <p class="hero-sub">Herlytics uses machine learning to detect PCOS risk early, track hormonal patterns, and give you personalized health insights — all in one beautiful dashboard.</p>
+      <div class="hero-actions">
+        <a href="pages/assessment.html" class="btn-primary">Start Free Assessment →</a>
+        <a href="#how" class="btn-outline">See How It Works</a>
+      </div>
+      <div style="display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);">
+          <span style="color:var(--teal-500);font-weight:700;">✓</span> 94% accuracy
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);">
+          <span style="color:var(--teal-500);font-weight:700;">✓</span> HIPAA compliant
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);">
+          <span style="color:var(--teal-500);font-weight:700;">✓</span> Doctor-reviewed
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-header">
+          <div class="card-icon">🌿</div>
+          <div>
+            <div class="card-title">Health Dashboard</div>
+            <div class="card-sub">Your personalized analytics</div>
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-val">92%</div>
+            <div class="metric-label">Cycle Health</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">Low</div>
+            <div class="metric-label">PCOS Risk</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">+12</div>
+            <div class="metric-label">Wellness Score</div>
+          </div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Hormonal Balance</span><span>78%</span></div>
+          <div class="progress-bar"><div class="progress-fill" data-width="78" style="width:0"></div></div>
+          <div class="progress-label"><span>Sleep Quality</span><span>85%</span></div>
+          <div class="progress-bar"><div class="progress-fill" data-width="85" style="width:0"></div></div>
+          <div class="progress-label"><span>Stress Index</span><span>42%</span></div>
+          <div class="progress-bar"><div class="progress-fill" data-width="42" style="width:0"></div></div>
+        </div>
+        <div style="margin-top:20px;background:var(--teal-50);border-radius:10px;padding:14px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.2rem;">💡</span>
+          <p style="font-size:.82rem;color:var(--teal-700);line-height:1.5;">Your next period is estimated in <strong>11 days</strong>. Consider reducing stress this week.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER STRIP -->
+<div class="partner-strip">
+  <div class="partner-inner">
+    <span class="partner-tag">Trusted by women at</span>
+    <div class="partner-logos">
+      <span class="partner-logo">Apollo Health</span>
+      <span class="partner-logo">Fortis Clinics</span>
+      <span class="partner-logo">MedFirst</span>
+      <span class="partner-logo">WellNest</span>
+      <span class="partner-logo">CareHub</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">Features</div>
+      <h2 class="section-title">Everything your health journey needs</h2>
+      <p class="section-sub">Herlytics combines clinical research with AI to give you actionable insights — not just data.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="feature-icon">🔬</div>
+        <div class="feature-title">PCOS Risk Detection</div>
+        <p class="feature-desc">Our ML model analyzes 18 biomarkers with 94% accuracy — detecting PCOS risk before symptoms become severe, enabling early intervention.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Cycle Analytics</div>
+        <p class="feature-desc">Track and predict menstrual cycles with AI-powered pattern recognition. Get insights on irregularities, fertile windows, and hormonal trends.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">🍏</div>
+        <div class="feature-title">Nutrition Intelligence</div>
+        <p class="feature-desc">Personalized diet recommendations optimized for your hormonal profile — anti-inflammatory plans tailored to PCOS, thyroid, and cycle health.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">📈</div>
+        <div class="feature-title">Hormonal Heatmaps</div>
+        <p class="feature-desc">Visualize fluctuations in estrogen, progesterone, insulin, and testosterone across your cycle with intuitive, color-coded dashboards.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">🩺</div>
+        <div class="feature-title">Doctor-Ready Reports</div>
+        <p class="feature-desc">Generate comprehensive PDF health reports to share with your gynecologist — saving time, improving consultations, and empowering conversations.</p>
+      </div>
+      <div class="card reveal">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Smart Reminders</div>
+        <p class="feature-desc">Personalized nudges for medication, lab tests, check-ups, and lifestyle habits — all timed to your hormonal phase for maximum impact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="section-inner">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="stat-val" data-target="94" data-suffix="%">0%</div>
+        <div class="stat-label">AI Detection Accuracy</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-val" data-target="25000" data-suffix="+">0+</div>
+        <div class="stat-label">Women Analyzed</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-val" data-target="18" data-suffix="">0</div>
+        <div class="stat-label">Biomarkers Tracked</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-val" data-target="4.8" data-float="true" data-suffix="★">0★</div>
+        <div class="stat-label">Average User Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+      <div class="reveal">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title">From assessment to action in minutes</h2>
+        <p class="section-sub">No lab visits. No complex forms. Just smart questions and instant insights powered by our clinical ML model.</p>
+        <a href="pages/assessment.html" class="btn-primary" style="margin-top:10px">Take the Assessment →</a>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Complete the Health Assessment</h3>
+            <p>Answer 20 clinically validated questions about your cycle, symptoms, lifestyle, and medical history. Takes under 5 minutes.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>AI Analyzes Your Profile</h3>
+            <p>Our ML model processes your inputs across 18 biomarker dimensions using a model trained on 25,000+ women's health records.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Receive Personalized Insights</h3>
+            <p>Get your PCOS risk score, hormonal analysis, and a personalized action plan — immediately, with no waiting.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Track & Improve Over Time</h3>
+            <p>Your dashboard updates as you log symptoms, meals, and lifestyle changes — showing real progress week by week.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" style="background:white;">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 50px;">
+      <div class="section-tag">Testimonials</div>
+      <h2 class="section-title">Women who changed their health story</h2>
+    </div>
+    <div class="testimonial-slider">
+      <div class="testimonial-card reveal">
+        <div class="quote">"</div>
+        <p class="testimonial-text">Herlytics detected my PCOS risk three months before my doctor did. The report I brought to my appointment completely changed the conversation — my gynecologist was impressed.</p>
+        <div class="testimonial-author">
+          <div class="avatar">P</div>
+          <div>
+            <div class="author-name">Priya Sharma</div>
+            <div class="author-role">Software Engineer, Bangalore</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="quote">"</div>
+        <p class="testimonial-text">Finally an app that actually understands what I'm going through. The nutrition recommendations alone improved my energy levels dramatically in just 6 weeks.</p>
+        <div class="testimonial-author">
+          <div class="avatar">A</div>
+          <div>
+            <div class="author-name">Anjali Mehta</div>
+            <div class="author-role">Teacher, Mumbai</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="quote">"</div>
+        <p class="testimonial-text">The hormonal heatmap was a revelation. Seeing exactly when my mood dips happen in relation to my cycle helped me plan my month so much better. Life-changing.</p>
+        <div class="testimonial-author">
+          <div class="avatar">R</div>
+          <div>
+            <div class="author-name">Riya Kapoor</div>
+            <div class="author-role">Founder, Delhi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 50px;">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">Invest in your health</h2>
+      <p class="section-sub">Start free. Upgrade when you're ready. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="plan-name">Free</div>
+        <div class="plan-price"><sup>₹</sup>0<span>/month</span></div>
+        <p class="plan-desc">Perfect for getting started with your health journey.</p>
+        <ul class="plan-features">
+          <li>1 PCOS Risk Assessment</li>
+          <li>Basic cycle tracking</li>
+          <li>3 months history</li>
+          <li>Email insights digest</li>
+        </ul>
+        <a href="pages/signup.html" class="btn-outline" style="width:100%;text-align:center;justify-content:center;">Get Started Free</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><sup>₹</sup>499<span>/month</span></div>
+        <p class="plan-desc">For women serious about understanding their hormonal health.</p>
+        <ul class="plan-features">
+          <li>Unlimited assessments</li>
+          <li>Full hormonal heatmaps</li>
+          <li>Nutrition plans & tracking</li>
+          <li>Doctor-ready PDF reports</li>
+          <li>Smart reminders</li>
+          <li>Unlimited history</li>
+        </ul>
+        <a href="pages/signup.html" class="btn-primary" style="width:100%;text-align:center;justify-content:center;">Start 14-Day Free Trial</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="plan-name">Clinic</div>
+        <div class="plan-price"><sup>₹</sup>2,999<span>/month</span></div>
+        <p class="plan-desc">For gynecology clinics and women's health practitioners.</p>
+        <ul class="plan-features">
+          <li>Up to 200 patients</li>
+          <li>Clinic dashboard & analytics</li>
+          <li>Bulk report generation</li>
+          <li>API access</li>
+          <li>Priority support</li>
+          <li>White-label options</li>
+        </ul>
+        <a href="pages/contact.html" class="btn-outline" style="width:100%;text-align:center;justify-content:center;">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:white;">
+  <div class="section-inner" style="max-width:760px;">
+    <div class="reveal" style="margin-bottom:40px;">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q">Is Herlytics a replacement for my doctor? <div class="faq-toggle">+</div></div>
+        <div class="faq-a">No — Herlytics is a health analytics tool, not a medical diagnosis service. Our AI generates risk scores and insights to help you have better-informed conversations with your healthcare provider, not to replace them.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How accurate is the PCOS detection model? <div class="faq-toggle">+</div></div>
+        <div class="faq-a">Our model achieves 94% accuracy on our test dataset of 25,000+ records. It uses a combination of Random Forest and logistic regression trained on clinical PCOS data reviewed by certified gynecologists.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my health data private and secure? <div class="faq-toggle">+</div></div>
+        <div class="faq-a">Absolutely. All data is encrypted at rest and in transit. We are HIPAA-compliant, never sell your data to third parties, and you can delete your account and all associated data at any time.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need blood test results to use Herlytics? <div class="faq-toggle">+</div></div>
+        <div class="faq-a">No. Our symptom-based assessment works without lab results. If you do have blood work, you can optionally input values for more precise analysis.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I share my results with my doctor? <div class="faq-toggle">+</div></div>
+        <div class="faq-a">Yes — Pro and Clinic plans include one-click PDF report generation designed specifically for clinical handoff, formatted to the standard a gynecologist expects.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="section-inner">
+    <div class="cta-banner reveal">
+      <h2>Your health deserves better data.</h2>
+      <p>Join 25,000+ women already using Herlytics to understand and improve their hormonal health.</p>
+      <a href="pages/assessment.html" class="btn-white">Start Free Assessment →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Herlytics.</div>
+        <p>AI-powered women's health analytics. Understand your hormones. Take control of your health.</p>
+        <div style="display:flex;gap:12px;margin-top:20px;">
+          <a href="#" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;">Twitter</a>
+          <a href="#" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;">Instagram</a>
+          <a href="#" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;">LinkedIn</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="pages/assessment.html">Assessment</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="pages/dashboard.html">Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">HIPAA Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Herlytics. Built with ❤️ for women's health.</span>
+      <span>Made in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

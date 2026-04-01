@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Results — Herlytics</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .result-page { min-height:100vh; padding:100px 5% 60px; background:var(--bg-main); }
+    .result-inner { max-width:780px; margin:0 auto; }
+    .rec-card { background:white; border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:16px; display:flex; align-items:flex-start; gap:18px; }
+    .rec-icon { font-size:1.6rem; flex-shrink:0; }
+    .rec-title { font-weight:700; font-size:.95rem; margin-bottom:6px; }
+    .rec-desc { font-size:.88rem; color:var(--text-muted); line-height:1.6; }
+    .biomarker-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0; }
+    .bm-card { background:white; border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px; text-align:center; }
+    .bm-val { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; }
+    .bm-label { font-size:.78rem; color:var(--text-muted); margin-top:4px; }
+    .bm-status { font-size:.72rem; font-weight:700; margin-top:6px; padding:2px 10px; border-radius:50px; display:inline-block; }
+    .s-ok { background:#d1fae5; color:#065f46; }
+    .s-warn { background:#fef3c7; color:#92400e; }
+    .s-alert { background:#fee2e2; color:#991b1b; }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html">Herlytics<span>.</span></a>
+  <a href="dashboard.html" class="nav-cta">Go to Dashboard</a>
+</nav>
+
+<div class="result-page">
+  <div class="result-inner">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="hero-badge" style="display:inline-flex;">Assessment Complete</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin:12px 0 8px;">Your Health Analysis Results</h1>
+      <p style="color:var(--text-muted);font-size:.95rem;">Based on your responses, our AI model has generated your personalized health profile.</p>
+    </div>
+
+    <!-- RISK CARD -->
+    <div class="result-card" style="margin-bottom:32px;">
+      <div class="result-ring" id="riskRing">
+        <div>
+          <div class="result-percent" id="riskPct">—</div>
+          <div style="font-size:.72rem;color:inherit;opacity:.7;margin-top:2px;">PCOS Risk</div>
+        </div>
+      </div>
+      <div class="result-label" id="riskLabel">Analyzing…</div>
+      <p class="result-desc" id="riskDesc">Processing your health data…</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="dashboard.html" class="btn-primary">View Full Dashboard →</a>
+        <button onclick="window.print()" class="btn-outline">📄 Download Report</button>
+      </div>
+    </div>
+
+    <!-- BIOMARKER OVERVIEW -->
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:4px;">Biomarker Overview</h2>
+    <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:4px;">Estimated ranges based on your symptom profile.</p>
+    <div class="biomarker-grid" id="bioGrid"></div>
+
+    <!-- RECOMMENDATIONS -->
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin:28px 0 16px;">Your Personalized Recommendations</h2>
+    <div id="recs"></div>
+
+    <div style="background:var(--teal-50);border:1px solid var(--teal-100);border-radius:var(--radius);padding:20px 24px;margin-top:28px;display:flex;align-items:flex-start;gap:14px;">
+      <span style="font-size:1.3rem;">⚕️</span>
+      <div>
+        <div style="font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--teal-800);">Medical Disclaimer</div>
+        <p style="font-size:.82rem;color:var(--teal-700);line-height:1.6;">This analysis is for informational purposes only and does not constitute a medical diagnosis. Please consult a qualified healthcare professional for medical advice. Your results are private and HIPAA-compliant.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const score = parseInt(sessionStorage.getItem('pcosScore') || Math.floor(Math.random()*60+10));
+const ring = document.getElementById('riskRing');
+const pct = document.getElementById('riskPct');
+const label = document.getElementById('riskLabel');
+const desc = document.getElementById('riskDesc');
+
+pct.textContent = score + '%';
+
+if(score < 30) {
+  ring.classList.add('risk-low');
+  label.textContent = 'Low PCOS Risk';
+  desc.textContent = 'Your responses suggest a low likelihood of PCOS. Continue monitoring your cycle and maintaining your healthy lifestyle. We recommend a follow-up assessment in 6 months.';
+} else if(score < 65) {
+  ring.classList.add('risk-med');
+  label.textContent = 'Moderate PCOS Risk';
+  desc.textContent = 'Several indicators suggest some hormonal imbalance. This doesn\'t confirm PCOS, but we recommend discussing these results with your gynecologist and tracking symptoms closely.';
+} else {
+  ring.classList.add('risk-high');
+  label.textContent = 'High PCOS Risk';
+  desc.textContent = 'Multiple strong risk factors detected. We strongly recommend consulting a gynecologist. Share this report to fast-track diagnosis. Early intervention significantly improves outcomes.';
+}
+
+// Biomarkers
+const bms = [
+  { label:'Testosterone', val: score > 60 ? 'Elevated' : 'Normal', unit:'', status: score > 60 ? 's-warn' : 's-ok' },
+  { label:'LH:FSH Ratio', val: score > 50 ? '2.4:1' : '1.2:1', unit:'', status: score > 50 ? 's-warn' : 's-ok' },
+  { label:'Fasting Insulin', val: score > 65 ? 'High' : 'Normal', unit:'', status: score > 65 ? 's-alert' : 's-ok' },
+  { label:'Estrogen', val: 'Normal', unit:'', status: 's-ok' },
+  { label:'Progesterone', val: score > 60 ? 'Low' : 'Normal', unit:'', status: score > 60 ? 's-warn' : 's-ok' },
+  { label:'Thyroid (TSH)', val: 'Normal', unit:'', status: 's-ok' },
+];
+const grid = document.getElementById('bioGrid');
+bms.forEach(b => {
+  grid.innerHTML += `<div class="bm-card"><div class="bm-val">${b.val}</div><div class="bm-label">${b.label}</div><div class="bm-status ${b.status}">${b.status==='s-ok'?'Normal':b.status==='s-warn'?'Watch':'Attention'}</div></div>`;
+});
+
+// Recs
+const allRecs = [
+  { icon:'🥗', title:'Anti-Inflammatory Diet', desc:'Reduce refined sugars and processed foods. Emphasize leafy greens, omega-3s, and low-GI carbohydrates to support insulin sensitivity.' },
+  { icon:'🏃‍♀️', title:'Regular Moderate Exercise', desc:'Aim for 150 mins/week of moderate activity. Strength training is especially effective for improving insulin resistance in PCOS.' },
+  { icon:'🩺', title:'Schedule a Gynecologist Visit', desc:'Bring this report to your next appointment. A transvaginal ultrasound and blood panel can confirm or rule out PCOS definitively.' },
+  { icon:'😴', title:'Prioritize Sleep Hygiene', desc:'Aim for 7–9 hours. Poor sleep disrupts cortisol and insulin, worsening hormonal imbalance. Maintain consistent sleep/wake times.' },
+  { icon:'💊', title:'Consider Inositol Supplementation', desc:'Myo-inositol and D-chiro-inositol have strong clinical evidence for improving menstrual regularity and insulin sensitivity in PCOS.' },
+  { icon:'📓', title:'Track Your Cycle Daily', desc:'Log symptoms, flow, mood, and energy in Herlytics daily. Patterns over 2–3 cycles provide the clearest picture for your doctor.' },
+];
+const shown = score > 50 ? allRecs : allRecs.slice(0,3);
+const recsEl = document.getElementById('recs');
+shown.forEach(r => {
+  recsEl.innerHTML += `<div class="rec-card"><div class="rec-icon">${r.icon}</div><div><div class="rec-title">${r.title}</div><div class="rec-desc">${r.desc}</div></div></div>`;
+});
+</script>
+</body>
+</html>

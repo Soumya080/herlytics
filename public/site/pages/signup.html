@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Herlytics</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html">Herlytics<span>.</span></a>
+  <ul class="nav-links"><li><a href="../index.html#features">Features</a></li></ul>
+  <a href="login.html" class="nav-cta">Login</a>
+</nav>
+
+<div class="form-page">
+  <div class="form-box" style="max-width:560px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--teal-400),var(--teal-600));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 16px;">✨</div>
+      <h2>Create your account</h2>
+      <p class="form-sub">Start your personalized health journey for free</p>
+    </div>
+
+    <div id="errorMsg" style="display:none;background:#fee2e2;color:#991b1b;padding:12px 16px;border-radius:8px;font-size:.88rem;margin-bottom:16px;text-align:center;"></div>
+
+    <form id="signupForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" placeholder="Priya" required />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" placeholder="Sharma" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="your_username" required pattern="[a-zA-Z0-9_]{3,20}" title="3-20 characters, letters, numbers, and underscores only" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="At least 8 characters" required />
+      </div>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" required />
+      </div>
+      <div class="form-group">
+        <label>Primary Health Goal</label>
+        <select>
+          <option>PCOS Detection & Management</option>
+          <option>Cycle Tracking & Prediction</option>
+          <option>Hormonal Balance</option>
+          <option>Fertility Awareness</option>
+          <option>General Women's Wellness</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;font-size:.85rem;color:var(--text-muted);">
+        <input type="checkbox" style="margin-top:3px;accent-color:var(--teal-500);" required />
+        <span>I agree to Herlytics' <a href="#" class="form-link">Terms of Service</a> and <a href="#" class="form-link">Privacy Policy</a>. My health data will be stored securely and never sold.</span>
+      </div>
+      <button type="submit" id="signupBtn" class="btn-primary" style="width:100%;justify-content:center;">Create Free Account →</button>
+    </form>
+
+    <div style="background:var(--teal-50);border-radius:10px;padding:14px 16px;margin-top:20px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:1.1rem;">🔒</span>
+      <p style="font-size:.8rem;color:var(--teal-700);">HIPAA compliant · End-to-end encrypted · Never sold to third parties</p>
+    </div>
+
+    <p style="text-align:center;margin-top:20px;font-size:.9rem;color:var(--text-muted);">
+      Already have an account? <a href="login.html" class="form-link">Sign in</a>
+    </p>
+  </div>
+</div>
+
+<script>
+const API = window.location.origin + '/api';
+const errorEl = document.getElementById('errorMsg');
+
+document.getElementById('signupForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  errorEl.style.display = 'none';
+
+  const btn = document.getElementById('signupBtn');
+  btn.textContent = 'Creating account…';
+  btn.disabled = true;
+
+  try {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    
+    const res = await fetch(API + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`,
+        username: document.getElementById('username').value.trim(),
+        password: document.getElementById('password').value
+      })
+    });
+
+    const data = await res.json();
+    console.log('Signup response:', data);
+
+    if (data.success) {
+      sessionStorage.setItem('user', JSON.stringify(data.user));
+      window.location.href = 'assessment.html';
+    } else {
+      // Show server error + debug info if available
+      let msg = data.error || 'Signup failed.';
+      if (data._debug) msg += ' [Debug: ' + data._debug + ']';
+      console.error('Signup failed:', data);
+      errorEl.textContent = msg;
+      errorEl.style.display = 'block';
+      btn.textContent = 'Create Free Account →';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    errorEl.textContent = 'Cannot connect to server. Make sure the backend is running.';
+    errorEl.style.display = 'block';
+    btn.textContent = 'Create Free Account →';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

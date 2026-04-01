@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Assessment — Herlytics</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .assess-page { min-height: 100vh; padding: 100px 5% 60px; background: var(--bg-main); }
+    .assess-inner { max-width: 680px; margin: 0 auto; }
+    .assess-head { margin-bottom: 36px; }
+    .assess-head h1 { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:700; color:var(--charcoal); margin-bottom:8px; }
+    .assess-head p { color:var(--text-muted); font-size:.95rem; }
+    .q-nav { display:flex; justify-content:space-between; margin-top:36px; }
+    .slider-input { width:100%; accent-color:var(--teal-500); height:6px; margin:12px 0; }
+    .slider-labels { display:flex; justify-content:space-between; font-size:.78rem; color:var(--text-muted); }
+    .number-input { width:100%; background:var(--teal-50); border:1.5px solid var(--teal-100); border-radius:var(--radius-sm); padding:14px 16px; font-size:1rem; font-family:'DM Sans',sans-serif; color:var(--charcoal); outline:none; }
+    .number-input:focus { border-color:var(--teal-400); background:white; }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html">Herlytics<span>.</span></a>
+  <div style="font-size:.88rem;color:var(--text-muted);">Question <span id="qNum">1</span> of 10</div>
+  <a href="dashboard.html" style="font-size:.85rem;color:var(--text-muted);text-decoration:none;">Skip for now</a>
+</nav>
+
+<div class="assess-page">
+  <div class="assess-inner">
+    <div class="assess-head">
+      <h1>Your Health Assessment</h1>
+      <p>Clinically validated questions to build your hormonal profile. Takes about 5 minutes.</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="step-bar" id="stepBar">
+      <div class="step-dot done" id="d0"></div>
+      <div class="step-dot" id="d1"></div>
+      <div class="step-dot" id="d2"></div>
+      <div class="step-dot" id="d3"></div>
+      <div class="step-dot" id="d4"></div>
+      <div class="step-dot" id="d5"></div>
+      <div class="step-dot" id="d6"></div>
+      <div class="step-dot" id="d7"></div>
+      <div class="step-dot" id="d8"></div>
+      <div class="step-dot" id="d9"></div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div id="q0" class="question-block active">
+      <div class="q-label">Question 1 of 10</div>
+      <h2 class="q-title">How long is your average menstrual cycle?</h2>
+      <p class="q-hint">Count from the first day of one period to the first day of the next.</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'cycle','lt21')">Less than 21 days</button>
+        <button class="option-btn" onclick="select(this,'cycle','21-28')">21–28 days</button>
+        <button class="option-btn" onclick="select(this,'cycle','29-35')">29–35 days</button>
+        <button class="option-btn" onclick="select(this,'cycle','gt35')">More than 35 days</button>
+        <button class="option-btn" onclick="select(this,'cycle','irregular')">Very irregular / unpredictable</button>
+        <button class="option-btn" onclick="select(this,'cycle','none')">No periods currently</button>
+      </div>
+    </div>
+
+    <div id="q1" class="question-block">
+      <div class="q-label">Question 2 of 10</div>
+      <h2 class="q-title">How would you describe your period flow?</h2>
+      <p class="q-hint">On your heaviest days.</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'flow','very-light')">Very light (spotting)</button>
+        <button class="option-btn" onclick="select(this,'flow','light')">Light</button>
+        <button class="option-btn" onclick="select(this,'flow','moderate')">Moderate</button>
+        <button class="option-btn" onclick="select(this,'flow','heavy')">Heavy</button>
+        <button class="option-btn" onclick="select(this,'flow','very-heavy')">Very heavy (flooding)</button>
+      </div>
+    </div>
+
+    <div id="q2" class="question-block">
+      <div class="q-label">Question 3 of 10</div>
+      <h2 class="q-title">Do you experience unwanted hair growth?</h2>
+      <p class="q-hint">On face, chest, stomach, or back — known as hirsutism.</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'hair','none')">No noticeable growth</button>
+        <button class="option-btn" onclick="select(this,'hair','slight')">Slight / occasional</button>
+        <button class="option-btn" onclick="select(this,'hair','moderate')">Moderate — I manage it regularly</button>
+        <button class="option-btn" onclick="select(this,'hair','significant')">Significant / bothers me</button>
+      </div>
+    </div>
+
+    <div id="q3" class="question-block">
+      <div class="q-label">Question 4 of 10</div>
+      <h2 class="q-title">How is your skin?</h2>
+      <p class="q-hint">Select all that apply — pick the most dominant pattern.</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'skin','clear')">Generally clear</button>
+        <button class="option-btn" onclick="select(this,'skin','acne-mild')">Mild acne or breakouts</button>
+        <button class="option-btn" onclick="select(this,'skin','acne-mod')">Moderate hormonal acne</button>
+        <button class="option-btn" onclick="select(this,'skin','acne-severe')">Severe / cystic acne</button>
+        <button class="option-btn" onclick="select(this,'skin','oily')">Excessively oily skin</button>
+        <button class="option-btn" onclick="select(this,'skin','dark-patches')">Dark patches / skin tags</button>
+      </div>
+    </div>
+
+    <div id="q4" class="question-block">
+      <div class="q-label">Question 5 of 10</div>
+      <h2 class="q-title">What is your approximate BMI range?</h2>
+      <p class="q-hint">BMI = Weight (kg) ÷ Height (m)²</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'bmi','under18')">Under 18.5 (Underweight)</button>
+        <button class="option-btn" onclick="select(this,'bmi','18-25')">18.5–24.9 (Normal)</button>
+        <button class="option-btn" onclick="select(this,'bmi','25-30')">25–30 (Overweight)</button>
+        <button class="option-btn" onclick="select(this,'bmi','over30')">Over 30 (Obese)</button>
+        <button class="option-btn" onclick="select(this,'bmi','unsure')">Not sure</button>
+      </div>
+    </div>
+
+    <div id="q5" class="question-block">
+      <div class="q-label">Question 6 of 10</div>
+      <h2 class="q-title">How would you rate your energy levels?</h2>
+      <p class="q-hint">On a typical day, not around your period.</p>
+      <input type="range" class="slider-input" min="1" max="10" value="5" id="energySlider" oninput="document.getElementById('eVal').textContent=this.value" />
+      <div class="slider-labels">
+        <span>1 — Exhausted always</span>
+        <span id="eVal" style="color:var(--teal-600);font-weight:700;">5</span>
+        <span>10 — Full of energy</span>
+      </div>
+    </div>
+
+    <div id="q6" class="question-block">
+      <div class="q-label">Question 7 of 10</div>
+      <h2 class="q-title">Do you experience mood swings or anxiety?</h2>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'mood','never')">Rarely or never</button>
+        <button class="option-btn" onclick="select(this,'mood','mild')">Mild — before period only</button>
+        <button class="option-btn" onclick="select(this,'mood','moderate')">Moderate — affects daily life</button>
+        <button class="option-btn" onclick="select(this,'mood','severe')">Severe / diagnosed anxiety or depression</button>
+      </div>
+    </div>
+
+    <div id="q7" class="question-block">
+      <div class="q-label">Question 8 of 10</div>
+      <h2 class="q-title">How would you describe your diet?</h2>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'diet','balanced')">Mostly balanced & whole foods</button>
+        <button class="option-btn" onclick="select(this,'diet','high-sugar')">High in sugar / refined carbs</button>
+        <button class="option-btn" onclick="select(this,'diet','vegetarian')">Vegetarian / Vegan</button>
+        <button class="option-btn" onclick="select(this,'diet','irregular')">Irregular meals / skipping</button>
+      </div>
+    </div>
+
+    <div id="q8" class="question-block">
+      <div class="q-label">Question 9 of 10</div>
+      <h2 class="q-title">How often do you exercise?</h2>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'exercise','none')">Rarely or never</button>
+        <button class="option-btn" onclick="select(this,'exercise','light')">1–2 times per week</button>
+        <button class="option-btn" onclick="select(this,'exercise','moderate')">3–4 times per week</button>
+        <button class="option-btn" onclick="select(this,'exercise','active')">5+ times per week</button>
+      </div>
+    </div>
+
+    <div id="q9" class="question-block">
+      <div class="q-label">Question 10 of 10</div>
+      <h2 class="q-title">Have you been diagnosed with any of the following?</h2>
+      <p class="q-hint">Select any that apply.</p>
+      <div class="options-grid">
+        <button class="option-btn" onclick="select(this,'dx','none')">None of the below</button>
+        <button class="option-btn" onclick="select(this,'dx','pcos')">PCOS (diagnosed)</button>
+        <button class="option-btn" onclick="select(this,'dx','thyroid')">Thyroid condition</button>
+        <button class="option-btn" onclick="select(this,'dx','endo')">Endometriosis</button>
+        <button class="option-btn" onclick="select(this,'dx','diabetes')">Type 2 Diabetes / Insulin resistance</button>
+        <button class="option-btn" onclick="select(this,'dx','other')">Other hormonal condition</button>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="q-nav">
+      <button class="btn-outline" id="prevBtn" onclick="prev()" style="display:none;">← Back</button>
+      <button class="btn-primary" id="nextBtn" onclick="next()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let current = 0;
+const total = 10;
+const answers = {};
+
+function select(btn, key, val) {
+  answers[key] = val;
+  btn.closest('.options-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function showQ(n) {
+  document.querySelectorAll('.question-block').forEach(q => q.classList.remove('active'));
+  document.getElementById('q'+n).classList.add('active');
+  document.getElementById('qNum').textContent = n+1;
+  for(let i=0;i<total;i++) document.getElementById('d'+i).classList.toggle('done', i<=n);
+  document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'flex';
+  document.getElementById('nextBtn').textContent = n === total-1 ? 'Get My Results →' : 'Next →';
+}
+
+function next() {
+  if (current < total-1) { current++; showQ(current); }
+  else { runModel(); }
+}
+function prev() { if(current > 0) { current--; showQ(current); } }
+
+async function runModel() {
+  const btn = document.getElementById('nextBtn');
+  btn.textContent = 'Analyzing...';
+  btn.disabled = true;
+
+  // Add the energy slider value which isn't captured by button clicks
+  answers.energy = document.getElementById('energySlider').value;
+
+  try {
+    const res = await fetch(window.location.origin + '/api/assessment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(answers)
+    });
+
+    const data = await res.json();
+    console.log('Assessment API response:', data);
+
+    if (data.success) {
+      sessionStorage.setItem('pcosScore', data.score);
+      sessionStorage.setItem('answers', JSON.stringify(answers));
+      window.location.href = 'result.html';
+    } else {
+      alert(data.error || 'Failed to analyze assessment.');
+      btn.textContent = 'Get My Results →';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    alert('Server connection error.');
+    btn.textContent = 'Get My Results →';
+    btn.disabled = false;
+  }
+}
+
+showQ(0);
+</script>
+</body>
+</html>

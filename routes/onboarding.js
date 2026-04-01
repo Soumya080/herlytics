@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-
-function requireLogin(req, res, next) {
-  if (!req.session.user) return res.redirect('/login');
-  next();
-}
+const CycleLog = require('../models/CycleLog');
+const { requireEjsAuth: requireLogin } = require('../middleware/auth');
 
 // Stage 1 — Cycle basics
 router.get('/stage1', requireLogin, (req, res) => res.render('onboarding/stage1', { error: null }));
@@ -49,7 +46,6 @@ router.get('/stage4', requireLogin, (req, res) => res.render('onboarding/stage4'
 
 router.post('/stage4', requireLogin, async (req, res) => {
   // Dates are saved as CycleLogs
-  const CycleLog = require('../models/CycleLog');
   const dates = [req.body.date1, req.body.date2, req.body.date3].filter(Boolean);
   for (const d of dates) {
     await CycleLog.create({ userId: req.session.user.id, periodStartDate: new Date(d) });

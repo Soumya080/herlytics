@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Herlytics</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html">Herlytics<span>.</span></a>
+  <ul class="nav-links"><li><a href="../index.html#features">Features</a></li><li><a href="about.html">About</a></li></ul>
+  <a href="signup.html" class="nav-cta">Get Started</a>
+</nav>
+
+<section style="padding:120px 5% 80px;">
+  <div class="section-inner" style="max-width:900px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+      <div>
+        <div class="section-tag">Contact Us</div>
+        <h1 class="section-title">Let's talk</h1>
+        <p style="color:var(--text-muted);font-size:.98rem;line-height:1.75;margin-bottom:36px;">Whether you're a healthcare provider interested in our Clinic plan, a researcher looking to collaborate, or just have a question — we'd love to hear from you.</p>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--teal-100);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">📧</div>
+            <div><div style="font-weight:700;font-size:.9rem;">Email</div><div style="font-size:.88rem;color:var(--text-muted);">hello@herlytics.in</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--teal-100);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">📍</div>
+            <div><div style="font-weight:700;font-size:.9rem;">Location</div><div style="font-size:.88rem;color:var(--text-muted);">Pune, Maharashtra, India</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--teal-100);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🐦</div>
+            <div><div style="font-weight:700;font-size:.9rem;">Twitter / X</div><div style="font-size:.88rem;color:var(--text-muted);">@herlytics</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-box" style="padding:40px;">
+        <h2 style="font-size:1.4rem;margin-bottom:6px;">Send a message</h2>
+        <p class="form-sub" style="margin-bottom:28px;">We typically respond within 24 hours.</p>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Priya" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma" /></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" /></div>
+          <div class="form-group">
+            <label>I'm reaching out about…</label>
+            <select>
+              <option>General Question</option>
+              <option>Clinic / Enterprise Plan</option>
+              <option>Research Collaboration</option>
+              <option>Press / Media</option>
+              <option>Bug Report</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help…"></textarea></div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
+        </form>
+        <div id="successMsg" style="display:none;background:var(--teal-100);border-radius:10px;padding:16px;text-align:center;margin-top:16px;">
+          <div style="font-size:1.4rem;">✅</div>
+          <div style="font-weight:700;color:var(--teal-800);margin-top:8px;">Message sent!</div>
+          <div style="font-size:.85rem;color:var(--teal-700);margin-top:4px;">We'll be in touch within 24 hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo">Herlytics.</div><p>AI-powered women's health analytics.</p></div>
+      <div class="footer-col"><h4>Product</h4><ul><li><a href="../index.html#features">Features</a></li><li><a href="assessment.html">Assessment</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Herlytics.</span><span>Made in India 🇮🇳</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+});
+</script>
+<script src="../js/main.js"></script>
+</body>
+</html>

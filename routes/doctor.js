@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-
-function requireLogin(req, res, next) {
-  if (!req.session.user) return res.redirect('/login');
-  next();
-}
+const { requireEjsAuth: requireLogin } = require('../middleware/auth');
 
 const bhopalDoctors = [
   { name: "Dr. Sangeeta Shrivastava", specialty: "Gynecologist & Obstetrician", hospital: "Hamidia Hospital", address: "Royal Market, Sultania Road, Bhopal", phone: "0755-2540222", area: "Sultania Road" },
