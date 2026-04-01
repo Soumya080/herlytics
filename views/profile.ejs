@@ -1,0 +1,185 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="page-container">
+
+  <div class="page-hero">
+    <div>
+      <h2>Your profile</h2>
+      <p>Update your information and health answers anytime.</p>
+    </div>
+  </div>
+
+  <% if (success) { %>
+    <div class="alert" style="background:#e8f5ee;color:#276749;border:1px solid #b2dfdb;">
+      ✅ <%= success %>
+    </div>
+  <% } %>
+  <% if (error) { %>
+    <div class="alert alert-danger">⚠️ <%= error %></div>
+  <% } %>
+
+  <!-- Basic Info -->
+  <div class="card">
+    <div class="card-title">Basic information</div>
+    <div class="card-sub">Name, age and city</div>
+
+    <form action="/profile/update" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full name</label>
+          <input type="text" name="name" value="<%= user.name %>" required />
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" value="@<%= user.username %>" disabled
+            style="background:#f5f5f5;color:#aaa;" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Age <span class="hint">— helps personalise menopause insights</span></label>
+          <input type="number" name="age" min="10" max="65"
+            value="<%= user.age || '' %>" placeholder="e.g. 24" />
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" name="city"
+            value="<%= user.city || '' %>" placeholder="e.g. Bhopal" />
+        </div>
+      </div>
+
+      <!-- Age-based insight shown here -->
+      <% if (user.age) { %>
+        <div class="age-insight-box">
+          <% if (user.age >= 45) { %>
+            <span class="age-tag age-peri">🌙 Perimenopause range</span>
+            <p>At age <%= user.age %>, you may be entering perimenopause. Irregular cycles, hot flashes, and mood changes are common. This is a natural transition — not a disease. We'll flag relevant patterns in your insights.</p>
+          <% } else if (user.age >= 40) { %>
+            <span class="age-tag age-pre">⏳ Pre-perimenopause watch</span>
+            <p>At age <%= user.age %>, your hormones may begin shifting over the next few years. We'll watch your cycle patterns closely and flag any changes that may relate to early perimenopause.</p>
+          <% } else if (user.age <= 17) { %>
+            <span class="age-tag age-teen">🌱 Teen cycle</span>
+            <p>At age <%= user.age %>, irregular cycles are completely normal. It can take 2–3 years after your first period for cycles to regulate. We'll track your patterns and let you know what's normal for your age.</p>
+          <% } else { %>
+            <span class="age-tag age-normal">✅ Reproductive years</span>
+            <p>At age <%= user.age %>, you're in your reproductive years. A healthy cycle is 21–35 days. We'll track your patterns and flag anything worth discussing with a doctor.</p>
+          <% } %>
+        </div>
+      <% } %>
+
+      <button type="submit" class="btn-primary">Save changes</button>
+    </form>
+  </div>
+
+  <!-- Health Answers -->
+  <div class="card">
+    <div class="card-title">Your health profile</div>
+    <div class="card-sub">Update your symptoms and lifestyle answers — this improves your risk analysis</div>
+
+    <form action="/profile/health" method="POST">
+
+      <div class="form-group">
+        <label>How many days between your periods?</label>
+        <div class="radio-group">
+          <% ['less21','21-25','26-30','31-35','more35','irregular'].forEach(val => { %>
+          <% const labels = {'less21':'Less than 21 days','21-25':'21–25 days','26-30':'26–30 days','31-35':'31–35 days','more35':'More than 35 days','irregular':'Completely irregular'} %>
+          <label>
+            <input type="radio" name="cycleGap" value="<%= val %>"
+              <%= user.cycleGap === val ? 'checked' : '' %> required>
+            <%= labels[val] %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Physical symptoms</label>
+        <div class="checkbox-group">
+          <% const physOpts = [
+            {v:'cramps',       l:'Cramps / pelvic pain'},
+            {v:'heavy_flow',   l:'Very heavy bleeding'},
+            {v:'clots',        l:'Clots in flow (larger than a coin)'},
+            {v:'spotting',     l:'Bleeding between periods'},
+            {v:'bloating',     l:'Bloating'},
+            {v:'headaches',    l:'Headaches / migraines'},
+            {v:'nausea',       l:'Nausea'},
+            {v:'back_pain',    l:'Back pain'},
+            {v:'facial_hair',  l:'Unusual facial hair / acne'},
+          ] %>
+          <% physOpts.forEach(o => { %>
+          <label>
+            <input type="checkbox" name="physicalSymptoms" value="<%= o.v %>"
+              <%= user.physicalSymptoms && user.physicalSymptoms.includes(o.v) ? 'checked' : '' %>>
+            <%= o.l %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Emotional symptoms</label>
+        <div class="checkbox-group">
+          <% const emoOpts = [
+            {v:'mood_swings', l:'Mood swings'},
+            {v:'anxiety',     l:'Anxiety before period'},
+            {v:'depression',  l:'Depression during period'},
+            {v:'fatigue',     l:'Extreme fatigue'},
+            {v:'brain_fog',   l:'Brain fog / forgetfulness'},
+          ] %>
+          <% emoOpts.forEach(o => { %>
+          <label>
+            <input type="checkbox" name="emotionalSymptoms" value="<%= o.v %>"
+              <%= user.emotionalSymptoms && user.emotionalSymptoms.includes(o.v) ? 'checked' : '' %>>
+            <%= o.l %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Stress level</label>
+        <div class="radio-group">
+          <% [['low','Low — fairly calm'],['moderate','Moderate — manageable'],['high','High — exams / work pressure'],['very_high','Very high — overwhelmed']].forEach(([v,l]) => { %>
+          <label>
+            <input type="radio" name="stressLevel" value="<%= v %>"
+              <%= user.stressLevel === v ? 'checked' : '' %>>
+            <%= l %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Sleep pattern</label>
+        <div class="radio-group">
+          <% [['good','Regular 7–8 hours'],['moderate','Irregular but okay'],['poor','Poor, often tired'],['very_poor','Very disrupted']].forEach(([v,l]) => { %>
+          <label>
+            <input type="radio" name="sleepPattern" value="<%= v %>"
+              <%= user.sleepPattern === v ? 'checked' : '' %>>
+            <%= l %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Known health conditions</label>
+        <div class="checkbox-group">
+          <% [['pcos','PCOS'],['thyroid','Thyroid'],['endometriosis','Endometriosis'],['anaemia','Anaemia'],['diabetes','Diabetes'],['none','None']].forEach(([v,l]) => { %>
+          <label>
+            <input type="checkbox" name="knownConditions" value="<%= v %>"
+              <%= user.knownConditions && user.knownConditions.includes(v) ? 'checked' : '' %>>
+            <%= l %>
+          </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Update health profile</button>
+    </form>
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>

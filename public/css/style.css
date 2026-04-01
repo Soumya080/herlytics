@@ -528,3 +528,19 @@ body {
   .doctor-card { flex-direction: column; }
   .cycle-hero-top { flex-direction: column; gap: 12px; }
 }
+/* ── PROFILE PAGE ── */
+.age-insight-box {
+  background: linear-gradient(135deg, #fff5f8, #fce4ec);
+  border: 1px solid #f48fb1; border-radius: 14px;
+  padding: 18px 20px; margin: 16px 0 20px;
+}
+.age-tag {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 20px; font-size: 12px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.age-peri   { background: #f3e5f5; color: #6a1b9a; }
+.age-pre    { background: var(--amber-lt); color: #b7791f; }
+.age-teen   { background: var(--sage-lt); color: #276749; }
+.age-normal { background: var(--rose-lt); color: var(--rose); }
+.age-insight-box p { font-size: 14px; color: #444; line-height: 1.7; }

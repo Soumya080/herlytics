@@ -38,6 +38,6 @@ app.use('/onboarding', require('./routes/onboarding'));
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/insights', require('./routes/insights'));
 app.use('/doctor', require('./routes/doctor'));
-
+app.use('/profile', require('./routes/profile'));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Herlytics running on http://localhost:${PORT}`));

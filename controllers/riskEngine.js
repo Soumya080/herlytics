@@ -77,8 +77,31 @@ function calculateRisk(user) {
     color = 'green';
     message = 'No strong risk indicators detected right now. Keep tracking — the more data, the clearer the picture.';
   }
+  // Age-based context
+let ageContext = null;
+if (user.age >= 45) {
+  ageContext = {
+    label: 'Perimenopause range',
+    message: 'At your age, irregular cycles may be related to perimenopause — a natural transition. Discuss with your doctor to distinguish PCOS symptoms from perimenopausal changes.',
+    color: 'purple'
+  };
+} else if (user.age >= 40) {
+  ageContext = {
+    label: 'Pre-perimenopause watch',
+    message: 'Hormonal shifts can begin in your 40s. Keep tracking cycle changes carefully.',
+    color: 'amber'
+  };
+} else if (user.age && user.age <= 17) {
+  ageContext = {
+    label: 'Teen cycle — irregular is normal',
+    message: 'Irregular cycles are completely expected in the first 2–3 years after your first period. Most patterns shown here are normal for your age.',
+    color: 'green'
+  };
+}
 
-  return { score, level, flags, message, color };
+return { score, level, flags, message, color, ageContext };
+
+  // return { score, level, flags, message, color };
 }
 
 module.exports = { calculateRisk };

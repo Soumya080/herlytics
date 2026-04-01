@@ -1,249 +1,287 @@
 <%- include('partials/header') %>
-<%- include('partials/navbar') %>
+  <%- include('partials/navbar') %>
 
-<div class="page-container">
+    <div class="page-container">
 
-  <div class="page-hero">
+      <div class="page-hero">
+        <div>
+          <h2>Your health insights</h2>
+          <p>Patterns, risks, and personalised recommendations.</p>
+        </div>
+      </div>
+
+      <!-- Risk Card -->
+      <div class="card risk-hero risk-<%= risk.level %>">
+        <div class="risk-top">
+          <div class="risk-score-circle">
+            <span class="risk-score-num">
+              <%= risk.score %>
+            </span>
+            <span class="risk-score-label">/ 100</span>
+          </div>
+          <div>
+            <div class="risk-level-badge">
+              <%= risk.level.toUpperCase() %> RISK
+            </div>
+            <p class="risk-message">
+              <%= risk.message %>
+            </p>
+          </div>
+        </div>
+        <% if (risk.ageContext) { %>
+<div class="card" style="border-left: 4px solid var(--rose); background: linear-gradient(135deg,#fff5f8,#fff);">
+  <div style="display:flex; gap:12px; align-items:flex-start;">
+    <span style="font-size:28px;">🗓️</span>
     <div>
-      <h2>Your health insights</h2>
-      <p>Patterns, risks, and personalised recommendations.</p>
+      <div style="font-size:12px;font-weight:800;color:var(--rose);letter-spacing:1px;margin-bottom:6px;">
+        AGE-BASED INSIGHT
+      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">
+        <%= risk.ageContext.label %>
+      </div>
+      <p style="font-size:14px;color:#444;line-height:1.7;">
+        <%= risk.ageContext.message %>
+      </p>
     </div>
   </div>
-
-  <!-- Risk Card -->
-  <div class="card risk-hero risk-<%= risk.level %>">
-    <div class="risk-top">
-      <div class="risk-score-circle">
-        <span class="risk-score-num"><%= risk.score %></span>
-        <span class="risk-score-label">/ 100</span>
-      </div>
-      <div>
-        <div class="risk-level-badge"><%= risk.level.toUpperCase() %> RISK</div>
-        <p class="risk-message"><%= risk.message %></p>
-      </div>
-    </div>
-
-    <% if (risk.flags.length > 0) { %>
-    <div class="flags-wrap">
-      <div class="flags-label">PATTERNS WE NOTICED</div>
-      <div class="flags-row">
-        <% risk.flags.forEach(f => { %>
-          <span class="flag-pill">⚠️ <%= f %></span>
-        <% }) %>
-      </div>
-    </div>
-    <% } %>
-
-    <% if (risk.level === 'high') { %>
-    <div style="margin-top:16px;">
-      <a href="/doctor" class="btn-primary">🩺 Find a doctor near me →</a>
-    </div>
-    <% } %>
-
-    <p class="disclaimer">
-      This analysis is based on patterns from 541 real patient records.
-      It is not a medical diagnosis — always consult a doctor for medical advice.
-    </p>
-  </div>
-
-  <!-- Recommendations Grid -->
-  <% if (stats) { %>
-  <div class="card-title" style="padding: 0 4px;">Personalised recommendations</div>
-  <div class="rec-grid">
-
-    <!-- Exercise -->
-    <div class="rec-card exercise">
-      <div class="rec-icon">🧘</div>
-      <div class="rec-title">Exercise for <%= stats.phase.name %> phase</div>
-      <ul class="rec-list">
-        <% if (stats.phase.name === 'Menstrual') { %>
-          <li>Gentle yoga or stretching</li>
-          <li>Short walks — avoid intense workouts</li>
-          <li>Child's pose for cramp relief</li>
-          <li>Rest is productive — honour it</li>
-        <% } else if (stats.phase.name === 'Follicular') { %>
-          <li>Running, cycling, or HIIT</li>
-          <li>Strength training works well now</li>
-          <li>Try new workouts — energy is high</li>
-          <li>Dance, swim, or group classes</li>
-        <% } else if (stats.phase.name === 'Ovulation') { %>
-          <li>High intensity cardio</li>
-          <li>Competitive sports — peak strength</li>
-          <li>Heavy lifting if you train</li>
-          <li>Outdoor activities for mood boost</li>
-        <% } else { %>
-          <li>Moderate yoga or pilates</li>
-          <li>Light walks — avoid overexertion</li>
-          <li>Swimming for mood and cramps</li>
-          <li>Reduce intensity as period nears</li>
-        <% } %>
-      </ul>
-    </div>
-
-    <!-- Diet -->
-    <div class="rec-card diet">
-      <div class="rec-icon">🥗</div>
-      <div class="rec-title">Diet for your symptoms</div>
-      <ul class="rec-list">
-        <% if (user.physicalSymptoms && user.physicalSymptoms.includes('heavy_flow')) { %>
-          <li>Iron-rich foods: dal, spinach, ragi</li>
-          <li>Vitamin C helps absorb iron</li>
-          <li>Avoid tea/coffee with meals</li>
-        <% } %>
-        <% if (user.physicalSymptoms && user.physicalSymptoms.includes('facial_hair')) { %>
-          <li>Reduce refined sugar and carbs</li>
-          <li>Spearmint tea may help with androgens</li>
-          <li>Include flaxseeds in daily diet</li>
-        <% } %>
-        <% if (stats.phase.name === 'Luteal') { %>
-          <li>Magnesium-rich foods: dark chocolate, nuts</li>
-          <li>Complex carbs reduce mood swings</li>
-          <li>Reduce salt to ease bloating</li>
-        <% } else if (stats.phase.name === 'Menstrual') { %>
-          <li>Dates, jaggery, and beetroot</li>
-          <li>Warm ginger tea for cramps</li>
-          <li>Stay hydrated — coconut water helps</li>
-        <% } else { %>
-          <li>Fresh fruits and vegetables daily</li>
-          <li>Whole grains over refined carbs</li>
-          <li>Omega-3: walnuts, flaxseeds, fish</li>
-        <% } %>
-      </ul>
-    </div>
-
-    <!-- Possible causes -->
-    <div class="rec-card causes">
-      <div class="rec-icon">🔍</div>
-      <div class="rec-title">Possible causes to explore</div>
-      <ul class="rec-list">
-        <% if (risk.level === 'high') { %>
-          <li>PCOS — very common, very treatable</li>
-          <li>Thyroid imbalance can affect cycles</li>
-          <li>Hormonal fluctuation from stress</li>
-          <li>Anaemia from heavy blood loss</li>
-        <% } else if (risk.level === 'moderate') { %>
-          <li>Stress disrupting hormone balance</li>
-          <li>Disrupted sleep affecting cortisol</li>
-          <li>Dietary iron deficiency</li>
-          <li>Normal variation — many cycles vary</li>
-        <% } else { %>
-          <li>Your cycle looks healthy overall</li>
-          <li>Small variations are completely normal</li>
-          <li>Keep tracking to build a better picture</li>
-          <li>Stress and travel can shift timing</li>
-        <% } %>
-      </ul>
-    </div>
-
-    <!-- Doctor advice — only show if moderate or high -->
-    <% if (risk.level !== 'low') { %>
-    <div class="rec-card doctor">
-      <div class="rec-icon">🩺</div>
-      <div class="rec-title">When to see a doctor</div>
-      <ul class="rec-list">
-        <% if (risk.level === 'high') { %>
-          <li>Book an appointment soon — don't wait</li>
-          <li>Ask specifically about PCOS screening</li>
-          <li>Request: hormonal blood test (FSH, LH)</li>
-          <li>Ultrasound to check ovaries</li>
-        <% } else { %>
-          <li>Mention symptoms at next routine visit</li>
-          <li>No emergency — but worth discussing</li>
-          <li>Track 2 more cycles before worrying</li>
-          <li>Note which symptoms worsen over time</li>
-        <% } %>
-      </ul>
-      <a href="/doctor" class="btn-secondary" style="margin-top:14px; font-size:13px;">
-        Find doctor →
-      </a>
-    </div>
-    <% } else { %>
-    <div class="rec-card" style="background:linear-gradient(135deg,#e8f5ee,#f0faf5); border-color:#b2dfdb;">
-      <div class="rec-icon">💚</div>
-      <div class="rec-title">You're doing well</div>
-      <ul class="rec-list">
-        <li>No urgent medical concern detected</li>
-        <li>Keep logging every cycle</li>
-        <li>Annual gynaecologist check is good practice</li>
-        <li>Reach out if anything feels different</li>
-      </ul>
-    </div>
-    <% } %>
-
-  </div>
-  <% } %>
-
-  <!-- Cycle stats -->
-  <% if (stats && stats.gaps.length > 0) { %>
-  <div class="card">
-    <div class="card-title">Cycle length over time</div>
-    <div class="card-sub">Your tracked history</div>
-    <canvas id="cycleChart" height="90"></canvas>
-    <div class="stats-row">
-      <div class="stat-box">
-        <span class="stat-num"><%= stats.avg %></span>
-        <span class="stat-label">Avg days</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num"><%= stats.min %></span>
-        <span class="stat-label">Shortest</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num"><%= stats.max %></span>
-        <span class="stat-label">Longest</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num <%= stats.isIrregular ? 'stat-flag' : 'stat-ok' %>">
-          <%= stats.variance %>
-        </span>
-        <span class="stat-label">Variance</span>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    new Chart(document.getElementById('cycleChart').getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: <%- JSON.stringify(stats.gaps.map((_,i) => `Cycle ${i+1}`)) %>,
-        datasets: [{
-          label: 'Cycle length (days)',
-          data: <%- JSON.stringify(stats.gaps) %>,
-          borderColor: '#C2185B',
-          backgroundColor: 'rgba(194,24,91,0.06)',
-          borderWidth: 2.5,
-          pointBackgroundColor: '#C2185B',
-          pointRadius: 5,
-          tension: 0.4,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: {
-            min: 15, suggestedMax: 45,
-            title: { display: true, text: 'Days' },
-            grid: { color: 'rgba(0,0,0,0.04)' }
-          },
-          x: { grid: { display: false } }
-        }
-      }
-    });
-  </script>
-  <% } %>
-
-  <!-- Phase card -->
-  <% if (stats) { %>
-  <div class="card phase-card">
-    <div class="phase-big"><%= stats.phase.emoji %></div>
-    <div class="phase-name"><%= stats.phase.name %> Phase</div>
-    <div class="phase-hormones"><%= stats.phase.hormones %></div>
-    <div class="phase-tip-box"><%= stats.phase.tip %></div>
-  </div>
-  <% } %>
-
 </div>
+<% } %>
 
-<%- include('partials/footer') %>
+        <% if (risk.flags.length> 0) { %>
+          <div class="flags-wrap">
+            <div class="flags-label">PATTERNS WE NOTICED</div>
+            <div class="flags-row">
+              <% risk.flags.forEach(f=> { %>
+                <span class="flag-pill">⚠️ <%= f %></span>
+                <% }) %>
+            </div>
+          </div>
+          <% } %>
+
+            <% if (risk.level==='high' ) { %>
+              <div style="margin-top:16px;">
+                <a href="/doctor" class="btn-primary">🩺 Find a doctor near me →</a>
+              </div>
+              <% } %>
+
+                <p class="disclaimer">
+                  This analysis is based on patterns from 541 real patient records.
+                  It is not a medical diagnosis — always consult a doctor for medical advice.
+                </p>
+      </div>
+
+      <!-- Recommendations Grid -->
+      <% if (stats) { %>
+        <div class="card-title" style="padding: 0 4px;">Personalised recommendations</div>
+        <div class="rec-grid">
+
+          <!-- Exercise -->
+          <div class="rec-card exercise">
+            <div class="rec-icon">🧘</div>
+            <div class="rec-title">Exercise for <%= stats.phase.name %> phase</div>
+            <ul class="rec-list">
+              <% if (stats.phase.name==='Menstrual' ) { %>
+                <li>Gentle yoga or stretching</li>
+                <li>Short walks — avoid intense workouts</li>
+                <li>Child's pose for cramp relief</li>
+                <li>Rest is productive — honour it</li>
+                <% } else if (stats.phase.name==='Follicular' ) { %>
+                  <li>Running, cycling, or HIIT</li>
+                  <li>Strength training works well now</li>
+                  <li>Try new workouts — energy is high</li>
+                  <li>Dance, swim, or group classes</li>
+                  <% } else if (stats.phase.name==='Ovulation' ) { %>
+                    <li>High intensity cardio</li>
+                    <li>Competitive sports — peak strength</li>
+                    <li>Heavy lifting if you train</li>
+                    <li>Outdoor activities for mood boost</li>
+                    <% } else { %>
+                      <li>Moderate yoga or pilates</li>
+                      <li>Light walks — avoid overexertion</li>
+                      <li>Swimming for mood and cramps</li>
+                      <li>Reduce intensity as period nears</li>
+                      <% } %>
+            </ul>
+          </div>
+
+          <!-- Diet -->
+          <div class="rec-card diet">
+            <div class="rec-icon">🥗</div>
+            <div class="rec-title">Diet for your symptoms</div>
+            <ul class="rec-list">
+              <% if (user.physicalSymptoms && user.physicalSymptoms.includes('heavy_flow')) { %>
+                <li>Iron-rich foods: dal, spinach, ragi</li>
+                <li>Vitamin C helps absorb iron</li>
+                <li>Avoid tea/coffee with meals</li>
+                <% } %>
+                  <% if (user.physicalSymptoms && user.physicalSymptoms.includes('facial_hair')) { %>
+                    <li>Reduce refined sugar and carbs</li>
+                    <li>Spearmint tea may help with androgens</li>
+                    <li>Include flaxseeds in daily diet</li>
+                    <% } %>
+                      <% if (stats.phase.name==='Luteal' ) { %>
+                        <li>Magnesium-rich foods: dark chocolate, nuts</li>
+                        <li>Complex carbs reduce mood swings</li>
+                        <li>Reduce salt to ease bloating</li>
+                        <% } else if (stats.phase.name==='Menstrual' ) { %>
+                          <li>Dates, jaggery, and beetroot</li>
+                          <li>Warm ginger tea for cramps</li>
+                          <li>Stay hydrated — coconut water helps</li>
+                          <% } else { %>
+                            <li>Fresh fruits and vegetables daily</li>
+                            <li>Whole grains over refined carbs</li>
+                            <li>Omega-3: walnuts, flaxseeds, fish</li>
+                            <% } %>
+            </ul>
+          </div>
+
+          <!-- Possible causes -->
+          <div class="rec-card causes">
+            <div class="rec-icon">🔍</div>
+            <div class="rec-title">Possible causes to explore</div>
+            <ul class="rec-list">
+              <% if (risk.level==='high' ) { %>
+                <li>PCOS — very common, very treatable</li>
+                <li>Thyroid imbalance can affect cycles</li>
+                <li>Hormonal fluctuation from stress</li>
+                <li>Anaemia from heavy blood loss</li>
+                <% } else if (risk.level==='moderate' ) { %>
+                  <li>Stress disrupting hormone balance</li>
+                  <li>Disrupted sleep affecting cortisol</li>
+                  <li>Dietary iron deficiency</li>
+                  <li>Normal variation — many cycles vary</li>
+                  <% } else { %>
+                    <li>Your cycle looks healthy overall</li>
+                    <li>Small variations are completely normal</li>
+                    <li>Keep tracking to build a better picture</li>
+                    <li>Stress and travel can shift timing</li>
+                    <% } %>
+            </ul>
+          </div>
+
+          <!-- Doctor advice — only show if moderate or high -->
+          <% if (risk.level !=='low' ) { %>
+            <div class="rec-card doctor">
+              <div class="rec-icon">🩺</div>
+              <div class="rec-title">When to see a doctor</div>
+              <ul class="rec-list">
+                <% if (risk.level==='high' ) { %>
+                  <li>Book an appointment soon — don't wait</li>
+                  <li>Ask specifically about PCOS screening</li>
+                  <li>Request: hormonal blood test (FSH, LH)</li>
+                  <li>Ultrasound to check ovaries</li>
+                  <% } else { %>
+                    <li>Mention symptoms at next routine visit</li>
+                    <li>No emergency — but worth discussing</li>
+                    <li>Track 2 more cycles before worrying</li>
+                    <li>Note which symptoms worsen over time</li>
+                    <% } %>
+              </ul>
+              <a href="/doctor" class="btn-secondary" style="margin-top:14px; font-size:13px;">
+                Find doctor →
+              </a>
+            </div>
+            <% } else { %>
+              <div class="rec-card" style="background:linear-gradient(135deg,#e8f5ee,#f0faf5); border-color:#b2dfdb;">
+                <div class="rec-icon">💚</div>
+                <div class="rec-title">You're doing well</div>
+                <ul class="rec-list">
+                  <li>No urgent medical concern detected</li>
+                  <li>Keep logging every cycle</li>
+                  <li>Annual gynaecologist check is good practice</li>
+                  <li>Reach out if anything feels different</li>
+                </ul>
+              </div>
+              <% } %>
+
+        </div>
+        <% } %>
+
+          <!-- Cycle stats -->
+          <% if (stats && stats.gaps.length> 0) { %>
+            <div class="card">
+              <div class="card-title">Cycle length over time</div>
+              <div class="card-sub">Your tracked history</div>
+              <canvas id="cycleChart" height="90"></canvas>
+              <div class="stats-row">
+                <div class="stat-box">
+                  <span class="stat-num">
+                    <%= stats.avg %>
+                  </span>
+                  <span class="stat-label">Avg days</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-num">
+                    <%= stats.min %>
+                  </span>
+                  <span class="stat-label">Shortest</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-num">
+                    <%= stats.max %>
+                  </span>
+                  <span class="stat-label">Longest</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-num <%= stats.isIrregular ? 'stat-flag' : 'stat-ok' %>">
+                    <%= stats.variance %>
+                  </span>
+                  <span class="stat-label">Variance</span>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              new Chart(document.getElementById('cycleChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                  labels: <% - JSON.stringify(stats.gaps.map((_, i) => `Cycle ${i + 1}`)) %>,
+                  datasets: [{
+                    label: 'Cycle length (days)',
+                    data: <% - JSON.stringify(stats.gaps) %>,
+                    borderColor: '#C2185B',
+                    backgroundColor: 'rgba(194,24,91,0.06)',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#C2185B',
+                    pointRadius: 5,
+                    tension: 0.4,
+                    fill: true
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    y: {
+                      min: 15, suggestedMax: 45,
+                      title: { display: true, text: 'Days' },
+                      grid: { color: 'rgba(0,0,0,0.04)' }
+                    },
+                    x: { grid: { display: false } }
+                  }
+                }
+              });
+            </script>
+            <% } %>
+
+              <!-- Phase card -->
+              <% if (stats) { %>
+                <div class="card phase-card">
+                  <div class="phase-big">
+                    <%= stats.phase.emoji %>
+                  </div>
+                  <div class="phase-name">
+                    <%= stats.phase.name %> Phase
+                  </div>
+                  <div class="phase-hormones">
+                    <%= stats.phase.hormones %>
+                  </div>
+                  <div class="phase-tip-box">
+                    <%= stats.phase.tip %>
+                  </div>
+                </div>
+                <% } %>
+
+    </div>
+
+    <%- include('partials/footer') %>
